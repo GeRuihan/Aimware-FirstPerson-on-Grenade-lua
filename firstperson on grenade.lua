@@ -1,10 +1,10 @@
 local ThirdPersonRef = gui.Reference('Visuals','Local','Camera')
 
-local NewThirdPersonDist = gui.Slider(ThirdPersonRef, 'ongrenadedist', 'Third Person Distance' , 0,0,500)
-
 local FirstPersonOnGrenade = gui.Checkbox(ThirdPersonRef, 'ongrenade','First Person On Grenade',0)
 
 local LocalChams = gui.GetValue('esp.chams.local.visible')
+
+local ThirdPersonDist = gui.GetValue('esp.local.thirdpersondist')
 
 client.AllowListener('item_equip')
 callbacks.Register('FireGameEvent', function(Event)
@@ -22,7 +22,7 @@ local WeaponType = Event:GetInt('weptype')
 			gui.SetValue('esp.local.thirdpersondist',0)
 			gui.SetValue('esp.chams.local.visible' , 8)
 		else
-			gui.SetValue('esp.local.thirdpersondist',NewThirdPersonDist:GetValue())
+			gui.SetValue('esp.local.thirdpersondist',ThirdPersonDist)
 			gui.SetValue('esp.chams.local.visible' ,LocalChams) 
 		end	
 	end
@@ -30,6 +30,10 @@ local WeaponType = Event:GetInt('weptype')
 	if gui.GetValue('esp.chams.local.visible') ~= 8 and gui.GetValue('esp.chams.local.visible') ~=LocalChams then
 		LocalChams = gui.GetValue('esp.chams.local.visible')
 	end	
+	
+	if gui.GetValue('esp.local.thirdpersondist') ~= 0 and gui.GetValue('esp.local.thirdpersondist') ~= ThirdPersonDist then
+		ThirdPersonDist = gui.GetValue('esp.local.thirdpersondist')
+	end
 	
 end)
 
